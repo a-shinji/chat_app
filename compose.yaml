@@ -1,0 +1,31 @@
+services:
+  db:
+    image: mysql:8.0
+    volumes:
+      - type: volume
+        source: mysql_data
+        target: /var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
+  web:
+    build: .
+    volumes:
+      - type: bind
+        source: ./
+        target: /myapp
+      - type: volume
+        source: gem_data
+        target: /usr/local/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
+    environment:
+      MYSQL_PASSWORD: password
+volumes:
+  mysql_data:
+  gem_data:
