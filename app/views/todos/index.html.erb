@@ -1,0 +1,10 @@
+
+<%= form_with do |form| %>
+  <%= form.text_area :text %>
+  <%= form.submit %>
+<% end %>
+
+<% @todos.each do |todo| %>
+    <%= todo.text %>
+    <%= link_to 'Delete', todo, data: { turbo_method: :delete } %>
+<% end %>
